@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Login Page </title>
+	</head>
+	<body>
+		<span> Login Id </span>
+		<input type="text" id="loginId"/>
+		<br/>
+		<span> Password: </span>
+		<input type="password" id="challengeId"/>
+		<br/>
+		<input type="submit" value="submit" onclick="loginRequest()">
+	</body>
+	<script>
+		function loginRequest(){
+			var login_id = document.getElementById("loginId").value;
+			var login_pass = document.getElementById("challengeId").value;
+			var param = {};
+			param.loginId = document.getElementById("loginId").value;
+			param.loginPass = document.getElementById("challengeId").value;
+			console.log(param)
+			// AJAX call
+			/*
+			$.ajax({
+   		 		url: "test.html",
+    			context: document.body,
+    			success: function(){
+    				alert
+   			 	}
+   			 	failure: function(){
+
+   			 	}
+   			 	error: function(){
+
+   			 	}
+			});*/
+
+		}
+	</script>
+</html>
