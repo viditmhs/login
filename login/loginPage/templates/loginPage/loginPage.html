@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+    	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 		<title> Login Page </title>
 	</head>
-	<body>
+	<body id="mainLocation">
 		<span> Login Id </span>
 		<input type="text" id="loginId"/>
 		<br/>
@@ -13,6 +15,30 @@
 		<input type="submit" value="submit" onclick="loginRequest()">
 	</body>
 	<script>
+		// This is CSRF token part
+		function getCookie(name) {
+    		var cookieValue = null;
+		    if (document.cookie && document.cookie !== '') {
+		        var cookies = document.cookie.split(';');
+		        for (var i = 0; i < cookies.length; i++) {
+		            var cookie = jQuery.trim(cookies[i]);
+		            // Does this cookie string begin with the name we want?
+		            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+		                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		                break;
+		            }
+		        }
+		    }
+		    return cookieValue;
+		}
+
+		var csrftoken = getCookie('csrftoken');
+
+		$.ajaxSetup({
+		    beforeSend: function(xhr) {
+		        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+		    }
+		});
 		function loginRequest(){
 			var login_id = document.getElementById("loginId").value;
 			var login_pass = document.getElementById("challengeId").value;
@@ -21,20 +47,26 @@
 			param.loginPass = document.getElementById("challengeId").value;
 			console.log(param)
 			// AJAX call
-			/*
+			
 			$.ajax({
-   		 		url: "test.html",
-    			context: document.body,
-    			success: function(){
-    				alert
-   			 	}
-   			 	failure: function(){
+				type: "POST",
+   		 		url: "loginAuth",
+    			data: param,
+    			dataType: "text",
+    			success: function(response){
+    				console.log(response)
+    				var changes = document.getElementById("mainLocation");
+    				changes.innerHTML = response;
+    				alert("you are logged in");
+   			 	},
+   			 	failure: function(response){
 
-   			 	}
+   			 		alert("failure");
+   			 	},
    			 	error: function(){
-
+   			 		alert("error");
    			 	}
-			});*/
+			});
 
 		}
 	</script>
