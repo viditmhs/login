@@ -20,3 +20,9 @@ class UserDetail(models.Model):
 
 	def is_created_5days_ago(self):
 		return self.created >= timezone.now() - datetime.timedelta(days=5)
+
+	def getLoginId(self):
+		return self.login_id
+
+	def getLoginChallenge(self):
+		return self.login_challenge
