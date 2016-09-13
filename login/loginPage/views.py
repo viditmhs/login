@@ -25,4 +25,4 @@ def loginStart(request):
 				return render(request, 'loginPage/loginUnsuccess.html', {'user_login_id' : userLoginId})
 
 	else:
-		return render(request, 'loginPage/loginUnsuccess.html', {'user_login_id' : userLoginId})
+		return render(request, 'loginPage/loginfailed.html', {'user_login_id' : userLoginId})
