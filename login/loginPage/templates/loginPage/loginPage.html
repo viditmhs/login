@@ -1,11 +1,99 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<style>
+form {
+    border: 3px solid #f1f1f1;
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+}
+
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+}
+
+img.avatar {
+    width: 40%;
+    border-radius: 50%;
+}
+
+.container {
+    padding: 16px;
+}
+
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+    .cancelbtn {
+       width: 100%;
+    }
+}
+</style>
 	<head>
+		<meta charset="utf-8">
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
     	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-		<title> Login Page </title>
+    	<!-- Bootstrap -->
+    	<!--<link rel="stylesheet" href="{{ STATIC_URL }}bootstrap.min.css" />
+    	<link rel="stylesheet" href="{{ STATIC_URL }}bower_components/bootstrap/dist/css/bootstrap-theme.min.css" />
+    	<link rel="stylesheet" href="{{ STATIC_URL }}bower_components/font-awesome/css/font-awesome.min.css" /> -->
+		<title> Vehical Invetory Management</title>
 	</head>
 	<body id="mainLocation">
+		<div class="imgcontainer">
+    		<img src="img_avatar2.png" alt="Avatar" class="avatar">
+ 		</div>
+
+  		<div class="container">
+    		<label><b>Username</b></label>
+    		<input type="text" placeholder="Enter Username" name="uname" required id="loginId">
+
+    		<label><b>Password</b></label>
+    		<input type="password" placeholder="Enter Password" name="psw" required id="challengeId">
+
+    		<input type="submit" value="Submit" onclick="loginRequest()">Login</button>
+    		<input type="checkbox" checked="checked"> Remember me
+  		</div>
+
+  		<div class="container" style="background-color:#f1f1f1">
+   			<button type="button" class="cancelbtn">Cancel</button>
+    		<span class="psw">Forgot <a href="#">password?</a></span>
+  		</div>
+	</body>
+	<!--<body id="mainLocation">
 		<span> Login Id </span>
 		<input type="text" id="loginId"/>
 		<br/>
@@ -13,7 +101,7 @@
 		<input type="password" id="challengeId"/>
 		<br/>
 		<input type="submit" value="submit" onclick="loginRequest()">
-	</body>
+	</body> -->
 	<script>
 		// This is CSRF token part
 		function getCookie(name) {
@@ -45,28 +133,32 @@
 			var param = {};
 			param.loginId = document.getElementById("loginId").value;
 			param.loginPass = document.getElementById("challengeId").value;
-			console.log(param)
 			// AJAX call
+			if((login_id != "" ) 
+				&& (login_pass != "" )){
 			
-			$.ajax({
-				type: "POST",
-   		 		url: "loginAuth",
-    			data: param,
-    			dataType: "text",
-    			success: function(response){
-    				console.log(response)
-    				var changes = document.getElementById("mainLocation");
-    				changes.innerHTML = response;
-    				//alert("you are logged in");
-   			 	},
-   			 	failure: function(response){
+				$.ajax({
+					type: "POST",
+	   		 		url: "loginAuth",
+	    			data: param,
+	    			dataType: "text",
+	    			success: function(response){
+	    				console.log(response)
+	    				var changes = document.getElementById("mainLocation");
+	    				changes.innerHTML = response;
+	    				//alert("you are logged in");
+	   			 	},
+	   			 	failure: function(response){
 
-   			 		alert("failure");
-   			 	},
-   			 	error: function(){
-   			 		alert("error");
-   			 	}
-			});
+	   			 		alert("failure");
+	   			 	},
+	   			 	error: function(){
+	   			 		alert("error");
+	   			 	}
+				});
+			}else{
+				alert("Username or password is missing");
+			}
 
 		}
 	</script>

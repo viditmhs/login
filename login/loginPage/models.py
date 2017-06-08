@@ -17,7 +17,7 @@ class UserDetail(models.Model):
 
 	def __str__(self):
 		return self.login_id
-
+'''
 	def is_created_5days_ago(self):
 		return self.created >= timezone.now() - datetime.timedelta(days=5)
 
@@ -26,3 +26,4 @@ class UserDetail(models.Model):
 
 	def getLoginChallenge(self):
 		return self.login_challenge
+'''
